@@ -25,10 +25,10 @@ The pipeline uses **Apache Spark** for distributed processing and deploys models
    Navigate to `scripts/ingest/` and run `fred_ping.py` to test API access.
 
 ## 👥 Team
-- Shyam Patel – Lead, ML, AWS EC2, Data Analysis
-- Jesmin Sultana – ML, OpenAI/LLM, Causal Inference
-- Noor Hassuneh – Frontend, Python, EDA
-- Sandeep Singh – Spark, Data Analytics
+- Shyam Patel
+- Jesmin Sultana
+- Noor Hassuneh
+- Sandeep Singh
 
 ---
 
