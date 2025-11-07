@@ -15,8 +15,16 @@ The pipeline uses **Apache Spark** for distributed processing and deploys models
 1. **Clone the repository**  
    `git clone https://github.com/<your-username>/fred-cloud-forecasting.git`
 
-2. **Set up environment variables**  
-   Add your FRED API key as `FRED_API_KEY` in your `.env` file or system environment.
+2. **Set up environment variables**
+   - Copy the example environment file:
+     ```bash
+     cp .env.example .env
+     ```
+   - Edit `.env` and add your FRED API key:
+     ```
+     FRED_API_KEY=your_api_key_here
+     ```
+   - Get a FRED API key from: [https://fred.stlouisfed.org/docs/api/api_key.html](https://fred.stlouisfed.org/docs/api/api_key.html)
 
 3. **Install dependencies**  
    Use `requirements.txt` (to be added) or set up a virtual environment.
