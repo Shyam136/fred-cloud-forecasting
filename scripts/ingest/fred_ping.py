@@ -58,7 +58,7 @@ def main():
     df = fetch_series(args.series, api_key, args.freq)
 
     Path(args.outdir).mkdir(parents=True, exist_ok=True)
-    ts = datetime.utcnow().strftime("%Y%m%dT%H%M%SZ")
+    ts = datetime.timezone.utc.strftime("%Y%m%dT%H%M%SZ")
     csv_path = Path(args.outdir) / f"{args.series}_{ts}.csv"
     df.to_csv(csv_path, index=False)
 
