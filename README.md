@@ -36,7 +36,7 @@ The pipeline uses **Apache Spark** for distributed processing and deploys models
 - Shyam Patel
 - Jesmin Sultana
 - Noor Hassuneh
-- Sandeep Singh
+- Sandeep Kang
 
 ---
 
