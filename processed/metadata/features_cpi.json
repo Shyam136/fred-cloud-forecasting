@@ -1,0 +1,13 @@
+{
+  "target": "CPIAUCSL",
+  "generated_at": "",
+  "script": "feature_builder.py",
+  "version": "",
+  "source": "FRED API",
+  "series_used": ["CPIAUCSL", "UNRATE", "WTISPLC", "PPIACO", "GDP"],
+  "row_count": "",
+  "date_range": {
+    "start": "",
+    "end": ""
+  }
+}
