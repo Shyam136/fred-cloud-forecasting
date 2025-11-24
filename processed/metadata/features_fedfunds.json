@@ -1,0 +1,13 @@
+{
+  "target": "FEDFUNDS",
+  "generated_at": "",
+  "script": "feature_builder.py",
+  "version": "",
+  "source": "FRED API",
+  "series_used": ["FEDFUNDS", "CPIAUCSL", "GDP", "GS10", "PCEPILFE"],
+  "row_count": "",
+  "date_range": {
+    "start": "",
+    "end": ""
+  }
+}
