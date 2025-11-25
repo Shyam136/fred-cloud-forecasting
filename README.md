@@ -129,7 +129,6 @@ Analysis performed using comprehensive EDA script (`notebooks/eda_targets.ipynb`
 - Time series decomposition and percentage change analysis
 - Seasonality diagnostics through monthly aggregation
 - Correlation analysis on aligned dataset
-- Outlier detection using IQR method
 - Missing value timeline analysis
 
 ## Team
