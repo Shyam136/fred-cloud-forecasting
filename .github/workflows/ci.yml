@@ -1,0 +1,80 @@
+# =============================================================
+# GitHub Actions Workflow: Continuous Integration (CI)
+# Project: FRED Cloud Forecasting
+# =============================================================
+
+name: CI Pipeline
+
+# ----------------------------------------------------------------
+# Triggers
+# ----------------------------------------------------------------
+on:
+  pull_request:
+    branches: [ main ]   # Runs on all PRs targeting 'main' branch
+  schedule:
+    - cron: "0 2 * * *"  # Optional nightly run at 2:00 AM UTC
+  workflow_dispatch:      # Allow manual trigger from GitHub Actions tab
+
+# ----------------------------------------------------------------
+# Job: Lint + Unit Tests
+# ----------------------------------------------------------------
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest flake8 black boto3 fredapi pyarrow
+
+      - name: Run Linting
+        run: |
+          echo "Running Black and Flake8..."
+          black --check .
+          flake8 .
+
+      - name: Run Unit Tests
+        run: |
+          echo "Running Pytest..."
+          pytest -v
+
+# ----------------------------------------------------------------
+# Job: Nightly FRED Data Ingestion
+# ----------------------------------------------------------------
+  nightly-ingest:
+    if: github.event_name == 'schedule'   # Only runs during cron schedule
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install boto3 fredapi pandas pyarrow
+
+      - name: Run Nightly FRED Ingestion
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: "us-east-1"
+        run: |
+          echo "Running nightly ingestion..."
+          python scripts/ingest/fred_bulk_fetch.py --series-list CPIAUCSL,GDP,FEDFUNDS
