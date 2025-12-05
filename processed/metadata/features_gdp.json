@@ -1,0 +1,13 @@
+{
+  "target": "GDP",
+  "generated_at": "",
+  "script": "feature_builder.py",
+  "version": "",
+  "source": "FRED API",
+  "series_used": ["GDP", "PCE", "FGCEC1", "PAYEMS"],
+  "row_count": "",
+  "date_range": {
+    "start": "",
+    "end": ""
+  }
+}
