@@ -131,6 +131,42 @@ Analysis performed using comprehensive EDA script (`notebooks/eda_targets.ipynb`
 - Correlation analysis on aligned dataset
 - Missing value timeline analysis
 
+## Insights (Week 4)
+
+### Model Performance Analysis
+
+**CPI Model**
+- **Linear Regression**: Exceptional performance (R² = 0.9999) with minimal error (MAE = 0.20, RMSE = 0.28)
+- **Random Forest**: Poor performance (R² = -1.68) - model is worse than a horizontal line
+- **Recommendation**: Use Linear Regression for CPI prediction
+
+**GDP Model**
+- **Linear Regression**: Excellent performance (R² = 0.9991) with low error (MAE = 38.15, RMSE = 144.42)
+- **Random Forest**: Poor performance (R² = -1.78) - model is worse than a horizontal line
+- **Recommendation**: Use Linear Regression for GDP prediction
+
+**FEDFUNDS Model**
+- **Linear Regression**: Outstanding performance (R² = 0.9915) with minimal error (MAE = 0.086, RMSE = 0.165)
+- **Random Forest**: Slightly better performance (R² = 0.9943) with very low error (MAE = 0.083, RMSE = 0.135)
+- **Recommendation**: Both models perform well, with Random Forest having a slight edge
+### Key Observations
+
+1. **Model Performance**:
+   - Linear Regression consistently performs exceptionally well across all three targets
+   - Random Forest shows poor performance for CPI and GDP but works well for FEDFUNDS
+   - The extremely high R² values suggest strong linear relationships in the data
+
+2. **Error Analysis**:
+   - All models show very low error rates, especially for CPI and FEDFUNDS
+   - The slightly higher RMSE for GDP suggests more variability in that target
+
+### Methodology
+Analysis performed using (`notebooks/eda_week4.ipynb`) with:
+- Linear Regression and Random Forest model implementation
+- Feature importance analysis for each economic indicator
+- Correlation heatmaps of transformed data
+- Model performance evaluation using R², MAE, and RMSE metrics
+
 ## Team
 - Shyam Patel
 - Jesmin Sultana
