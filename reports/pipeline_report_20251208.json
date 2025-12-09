@@ -1,0 +1,124 @@
+{
+    "targets": {
+        "CPI": {
+            "target": "CPI",
+            "selected_features": [
+                "CPI_lag6",
+                "CPI_lag1",
+                "CPI_ma6",
+                "CPI_ma3",
+                "CPI_ma12",
+                "CPI_lag3",
+                "CPI_lag12",
+                "CPI_std12",
+                "CPI_std6",
+                "CPI_std3"
+            ],
+            "feature_importance": {
+                "CPI_lag6": 0.17134207007461155,
+                "CPI_lag1": 0.1676769241273887,
+                "CPI_ma6": 0.16713502859088591,
+                "CPI_ma3": 0.14667516937353048,
+                "CPI_ma12": 0.1213619618133963,
+                "CPI_lag3": 0.11757828474078877,
+                "CPI_lag12": 0.10787590988080048,
+                "CPI_std12": 0.00023343265662451737,
+                "CPI_std6": 8.989801717944383e-05,
+                "CPI_std3": 1.8206999461338552e-05,
+                "CPI_pct_change": 1.3113725332433247e-05
+            },
+            "metrics_selected_features": {
+                "linear_regression": {
+                    "r2": 0.9999184941227407,
+                    "mae": 0.19790640335449244,
+                    "rmse": 0.28134865977575696
+                },
+                "random_forest": {
+                    "r2": -1.6918668159675052,
+                    "mae": 40.62464696649021,
+                    "rmse": 51.13016238267049
+                }
+            }
+        },
+        "GDP": {
+            "target": "GDP",
+            "selected_features": [
+                "GDP_lag6",
+                "GDP_ma3",
+                "GDP_ma6",
+                "GDP_lag12",
+                "GDP_ma12",
+                "GDP_lag3",
+                "GDP_lag1",
+                "GDP_std12",
+                "GDP_std6",
+                "GDP_std3"
+            ],
+            "feature_importance": {
+                "GDP_lag6": 0.1793681189820668,
+                "GDP_ma3": 0.15586905730388326,
+                "GDP_ma6": 0.15392639071443728,
+                "GDP_lag12": 0.1421734419407782,
+                "GDP_ma12": 0.14141027639434706,
+                "GDP_lag3": 0.13773526475775147,
+                "GDP_lag1": 0.08936299905014562,
+                "GDP_std12": 0.00012537730778913736,
+                "GDP_std6": 2.181035886635348e-05,
+                "GDP_std3": 5.889872078474419e-06,
+                "GDP_pct_change": 1.3733178562140976e-06
+            },
+            "metrics_selected_features": {
+                "linear_regression": {
+                    "r2": 0.9990298223671039,
+                    "mae": 38.786356887549054,
+                    "rmse": 146.06292288113343
+                },
+                "random_forest": {
+                    "r2": -1.777426691257641,
+                    "mae": 6240.914355978899,
+                    "rmse": 7815.120173055325
+                }
+            }
+        },
+        "FEDFUNDS": {
+            "target": "FEDFUNDS",
+            "selected_features": [
+                "FEDFUNDS_ma3",
+                "FEDFUNDS_lag1",
+                "FEDFUNDS_pct_change",
+                "FEDFUNDS_std12",
+                "FEDFUNDS_std3",
+                "FEDFUNDS_lag12",
+                "FEDFUNDS_lag3",
+                "FEDFUNDS_std6",
+                "FEDFUNDS_ma12",
+                "FEDFUNDS_lag6"
+            ],
+            "feature_importance": {
+                "FEDFUNDS_ma3": 0.6833832078868319,
+                "FEDFUNDS_lag1": 0.3005487528480271,
+                "FEDFUNDS_pct_change": 0.00557365313081375,
+                "FEDFUNDS_std12": 0.004439026573917804,
+                "FEDFUNDS_std3": 0.0012719024415721039,
+                "FEDFUNDS_lag12": 0.0010461708671729193,
+                "FEDFUNDS_lag3": 0.0010150389699651388,
+                "FEDFUNDS_std6": 0.0008877425121683664,
+                "FEDFUNDS_ma12": 0.000845559829426097,
+                "FEDFUNDS_lag6": 0.0005699269744193747,
+                "FEDFUNDS_ma6": 0.0004190179656855069
+            },
+            "metrics_selected_features": {
+                "linear_regression": {
+                    "r2": 0.9914749868767206,
+                    "mae": 0.08569693673579815,
+                    "rmse": 0.1658333203122686
+                },
+                "random_forest": {
+                    "r2": 0.9945936525567686,
+                    "mae": 0.08036172839506252,
+                    "rmse": 0.13206150565444982
+                }
+            }
+        }
+    }
+}
