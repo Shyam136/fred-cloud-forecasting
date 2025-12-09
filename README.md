@@ -167,6 +167,123 @@ Analysis performed using (`notebooks/eda_week4.ipynb`) with:
 - Correlation heatmaps of transformed data
 - Model performance evaluation using R², MAE, and RMSE metrics
 
+## Week 5 – Advanced Modeling Quick Start
+
+### Overview
+Week 5 introduces advanced gradient boosting models (XGBoost and LightGBM) for economic forecasting, with comprehensive comparison against baseline models and visualization outputs suitable for presentations.
+
+### Training Advanced Models
+
+#### Prerequisites
+Ensure all dependencies are installed:
+```bash
+pip install -r requirements.txt
+# Specifically: xgboost, lightgbm, matplotlib, scikit-learn
+```
+
+#### Basic Usage
+
+**Train XGBoost model for CPI:**
+```bash
+python scripts/models/train_advanced.py \
+  --input processed/master_transformed_20251203.parquet \
+  --target CPI \
+  --model xgboost \
+  --out-metrics reports/model_comparison_20251209.json \
+  --out-figs docs/figures/week5/
+```
+
+**Train LightGBM model for GDP with feature file:**
+```bash
+python scripts/models/train_advanced.py \
+  --input processed/master_transformed_20251203.parquet \
+  --features processed/features_gdp_20251126.parquet \
+  --target GDP \
+  --model lightgbm \
+  --out-metrics reports/model_comparison_20251209.json \
+  --out-figs docs/figures/week5/
+```
+
+**Train with custom test split for FEDFUNDS:**
+```bash
+python scripts/models/train_advanced.py \
+  --input processed/master_transformed_20251203.parquet \
+  --target FEDFUNDS \
+  --model xgboost \
+  --test-size 0.25 \
+  --seed 42 \
+  --out-metrics reports/model_comparison_20251209.json \
+  --out-figs docs/figures/week5/
+```
+
+#### Command Line Options
+
+| Option | Description | Default |
+|--------|-------------|---------|
+| `--input` | Path to processed dataset (parquet or csv) | **Required** |
+| `--target` | Target variable (CPI, GDP, or FEDFUNDS) | **Required** |
+| `--model` | Model type (xgboost or lightgbm) | **Required** |
+| `--features` | Optional path to features file for merging | None |
+| `--date-col` | Name of date column | `date` |
+| `--test-size` | Test set proportion | `0.2` |
+| `--seed` | Random seed for reproducibility | `42` |
+| `--out-metrics` | Output path for metrics JSON | `reports/model_comparison_<date>.json` |
+| `--out-figs` | Output directory for figures | `docs/figures/week5/` |
+
+#### Outputs
+
+The script generates the following outputs:
+
+**Metrics JSON** (`reports/model_comparison_<date>.json`):
+- Advanced model performance metrics (R², MAE, RMSE)
+- Baseline model metrics (if available)
+- Hyperparameters used
+- Dataset information
+
+**Visualizations** (saved to `docs/figures/week5/`):
+1. **Predicted vs Actual** (`<target>_pred_vs_actual_<date>.png`) - Scatter plot showing model predictions against true values
+2. **Residuals Distribution** (`<target>_residuals_<date>.png`) - Histogram of prediction errors
+3. **Feature Importance** (`<target>_feat_importance_<date>.png`) - Top 15 most important features (for tree models)
+4. **Model Comparison** (`<target>_metric_compare_<date>.png`) - Bar charts comparing baseline vs advanced models
+
+#### Features
+
+- **Automatic dependency checking**: Script verifies XGBoost/LightGBM installation and provides clear instructions if missing
+- **Robust data handling**: Handles missing values, auto-detects date columns, merges feature files
+- **Baseline comparison**: Automatically loads and compares against previous baseline models
+- **High-quality visualizations**: PNG outputs at 300 DPI, suitable for presentations
+- **Reproducibility**: All random seeds and hyperparameters are logged
+
+#### Troubleshooting
+
+**Missing Dependencies:**
+```bash
+# If XGBoost is not installed:
+pip install xgboost
+
+# If LightGBM is not installed:
+pip install lightgbm
+```
+
+**File Not Found:**
+- Verify input file paths are correct
+- Use absolute paths or paths relative to the script location
+- Check that feature files exist if specified
+
+**Poor Model Performance:**
+- Try different hyperparameters (edit the script for custom tuning)
+- Check for data quality issues (missing values, outliers)
+- Ensure sufficient training data
+- Consider using time series cross-validation for better evaluation
+
+### Architecture
+
+- **`scripts/models/train_advanced.py`**: Main training script with CLI interface
+- **`scripts/models/utils.py`**: Utility functions for metrics loading and plotting
+- **`processed/`**: Transformed datasets and feature files
+- **`reports/`**: Model comparison metrics in JSON format
+- **`docs/figures/week5/`**: Generated visualizations
+
 ## Team
 - Shyam Patel
 - Jesmin Sultana

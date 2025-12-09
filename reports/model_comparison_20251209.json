@@ -1,0 +1,25 @@
+{
+  "target": "FEDFUNDS",
+  "timestamp": "20251209",
+  "advanced_model": {
+    "model_type": "XGBOOST",
+    "hyperparameters": {
+      "n_estimators": 100,
+      "max_depth": 6,
+      "learning_rate": 0.1,
+      "subsample": 0.8,
+      "colsample_bytree": 0.8
+    },
+    "random_seed": 42,
+    "train_r2": 0.9981641876923655,
+    "train_mae": 0.10121707198343848,
+    "train_rmse": 0.1532019133204587,
+    "test_r2": -0.9459530144929325,
+    "test_mae": 2.5511145915745685,
+    "test_rmse": 2.77333968949952,
+    "n_features": 8,
+    "n_train_samples": 717,
+    "n_test_samples": 239
+  },
+  "baseline_models": {}
+}
