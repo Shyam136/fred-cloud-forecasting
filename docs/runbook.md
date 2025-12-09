@@ -32,4 +32,18 @@
 - CI workflow (.github/workflows/ci.yml)
 - Nightly ingestion trigger (optional cron job)
 
+## 6. End-to-End Workflow
+The forecasting workflow is fully automated:
+1. make preprocess
+2. make features
+3. make train
+4. make train-advanced
+5. make validate
+6. make pipeline
+
+## 7. Reproducibility and CI/CD
+Every step can be re-run reproducibly using the Makefile.
+- Lint + tests run on pull requests.
+- The full pipeline runs automatically on push to main.
+- This ensures continuous integration and delivery of fresh forecasts.
 ---

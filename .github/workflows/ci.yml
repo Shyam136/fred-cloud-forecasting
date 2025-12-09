@@ -10,13 +10,15 @@ name: CI Pipeline
 # ----------------------------------------------------------------
 on:
   pull_request:
-    branches: [ main ]   # Runs on all PRs targeting 'main' branch
+    branches: [ main ]          # Run on all PRs targeting main
+  push:
+    branches: [ main ]          # NEW: Run pipeline automatically on push to main
   schedule:
-    - cron: "0 2 * * *"  # Optional nightly run at 2:00 AM UTC
-  workflow_dispatch:      # Allow manual trigger from GitHub Actions tab
+    - cron: "0 2 * * *"         # Optional nightly job (2 AM UTC)
+  workflow_dispatch:             # Manual trigger option from GitHub UI
 
 # ----------------------------------------------------------------
-# Job: Lint + Unit Tests
+# Job 1: Lint + Unit Tests
 # ----------------------------------------------------------------
 jobs:
   build-test:
@@ -49,10 +51,10 @@ jobs:
           pytest -v
 
 # ----------------------------------------------------------------
-# Job: Nightly FRED Data Ingestion
+# Job 2: Nightly FRED Data Ingestion
 # ----------------------------------------------------------------
   nightly-ingest:
-    if: github.event_name == 'schedule'   # Only runs during cron schedule
+    if: github.event_name == 'schedule'   # Runs only on cron schedule
     runs-on: ubuntu-latest
 
     steps:
@@ -78,3 +80,28 @@ jobs:
         run: |
           echo "Running nightly ingestion..."
           python scripts/ingest/fred_bulk_fetch.py --series-list CPIAUCSL,GDP,FEDFUNDS
+
+# ----------------------------------------------------------------
+# Job 3: Run Full Pipeline on Push to Main
+# ----------------------------------------------------------------
+  pipeline:
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install xgboost lightgbm boto3 fredapi pandas pyarrow
+
+      - name: Run Full Forecasting Pipeline
+        run: make pipeline
