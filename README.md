@@ -30,7 +30,7 @@ The pipeline uses **Apache Spark** for distributed processing and deploys models
 
 3. **Install dependencies**  
    ```bash
-   pip install pandas requests boto3 python-dotenv pyarrow
+   pip install pandas requests boto3 python-dotenv pyarrow scikit-learn xgboost lightgbm matplotlib numpy
    ```
    Or use the provided `requirements.txt`:
    ```bash
@@ -40,7 +40,7 @@ The pipeline uses **Apache Spark** for distributed processing and deploys models
 4. **Run the ingestion script**  
    ```bash
    python scripts/ingest/fred_ping.py  # Test API access
-   python scripts/ingest/fred_fetch.py  # Run bulk data fetch
+   python scripts/ingest/fred_bulk_fetch.py  # Run bulk data fetch
    ```
 
 ## Quick Start (Bulk Fetch)
@@ -49,14 +49,14 @@ The pipeline uses **Apache Spark** for distributed processing and deploys models
 Use the bulk fetch script to download and process multiple economic indicators from FRED:
 
 ```bash
-# Example 1: Fetch specific series
-python scripts/ingest/fred_fetch.py --series_id CPIAUCSL,GDP,FEDFUNDS --start_date 2000-01-01 --output_format csv
+# Example 1: Fetch default series (CPIAUCSL, GDP, FEDFUNDS) as Parquet
+python scripts/ingest/fred_bulk_fetch.py
 
-# Example 2: Fetch and save to S3 (requires AWS credentials configured)
-python scripts/ingest/fred_fetch.py --series_id UNRATE --start_date 2010-01-01 --output_format parquet --s3_upload
+# Example 2: Fetch specific series as CSV
+python scripts/ingest/fred_bulk_fetch.py --series-list CPIAUCSL,GDP,FEDFUNDS --format csv
 
 # Example 3: Get help with available options
-python scripts/ingest/fred_fetch.py --help
+python scripts/ingest/fred_bulk_fetch.py --help
 ```
 
 ### Output Formats
@@ -65,9 +65,13 @@ python scripts/ingest/fred_fetch.py --help
 - S3: Direct upload to configured AWS S3 bucket
 
 ### Required Environment Variables
-- `FRED_API_KEY`: Your FRED API key
-- `AWS_REGION`: AWS region (e.g., us-east-1)
-- `S3_BUCKET`: Target S3 bucket for data storage (if using S3 upload)
+Create a `.env` file in the project root with the following variables:
+
+- `FRED_API_KEY`: Your FRED API key (required for data fetching)
+- `AWS_REGION`: AWS region where your S3 bucket is located
+- `AWS_ACCESS_KEY_ID`: AWS access key with S3 write permissions
+- `AWS_SECRET_ACCESS_KEY`: AWS secret key for authentication
+- `S3_BUCKET`: Name of the S3 bucket for storing fetched data
 
 ### Troubleshooting
 
